@@ -11,7 +11,7 @@ class DirectorioContacto extends Seeder
      */
     public function run()
     {
-        DB:table('contacto')->insert( [
+        DB::table('contacto')->insert( [
             [
                 'nombre' => 'sarah sandino',
                 'direccion'=> 'por residencial don bladi,urbanizacion tiste fresco.',
@@ -21,7 +21,7 @@ class DirectorioContacto extends Seeder
             [
                 'nombre' => 'sarah 2 sandino',
                 'direccion'=> 'por residencial don bladi,urbanizacion tiste fresco.',
-                'telefono'=> 74589625,
+                'telefono'=> 74589626,
                 'foto' =>  null
             ]
         ] );
