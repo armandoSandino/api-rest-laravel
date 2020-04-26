@@ -8,6 +8,8 @@ use App\Contacto;
 
 class ContactoController extends Controller
 {
+    //http://127.0.0.1:8000/api/contactos lista todos
+    //http://127.0.0.1:8000/api/contactos?termino= obtiene por nombre o telefono
     //GET listar contactos
     public function index( Request $request )
     {
@@ -32,16 +34,12 @@ class ContactoController extends Controller
     {
         //
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    //http://127.0.0.1:8000/api/contactos/3
+    //GET obtiene un registro por ID
+    //public function show($id)
+    public function show ( Contacto $contacto )
     {
-        //
+        return $contacto;
     }
 
     /**
