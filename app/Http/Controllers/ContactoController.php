@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Contacto;
+use App\Contacto;// importamos el modelo
+
+use App\Http\Requests\UpdateContactoRequest; //importamos la validaciones
 
 class ContactoController extends Controller
 {
@@ -41,17 +43,16 @@ class ContactoController extends Controller
     {
         return $contacto;
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    //PUT actualizar un registro
+    //public function update(Request $request, $id)
+    public function update(UpdateContactoRequest $request, Contacto $contacto ) 
     {
-        //
+        $input = $request->all();
+        $contacto->update( $input );
+        return \response()->json([
+            'res'=> true,
+            'message' => 'Actualizado correctamente.'
+        ], 200 );
     }
 
     /**
