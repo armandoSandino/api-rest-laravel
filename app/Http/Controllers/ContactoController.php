@@ -54,15 +54,13 @@ class ContactoController extends Controller
             'message' => 'Actualizado correctamente.'
         ], 200 );
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    //DELETE borra registro
     public function destroy($id)
     {
-        //
+        Contacto::destroy( $id );
+        return response()->json([
+            'res'=> true,
+            'message'=>'Registro borrado...'
+        ],  200 );
     }
 }
