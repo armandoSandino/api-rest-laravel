@@ -9,9 +9,17 @@ use App\Contacto;
 class ContactoController extends Controller
 {
     //GET listar contactos
-    public function index()
+    public function index( Request $request )
     {
-        return Contacto::all();
+        if ( $request->has('termino') ) {//si hay criterios de busqueda
+            $resultado = 
+            Contacto::where('nombre','like','%'.$request->termino.'%')
+            ->orWhere('telefono', $request->telefono )
+            ->get();
+        } else {
+            $resultado = Contacto::all();
+        }
+        return $resultado;
     }
 
     /**
