@@ -46,4 +46,14 @@ class UserController extends Controller
             ], 500 );
         }
     }
+    public function logout() {
+        $user = auth()->user();
+        $user->api_token = null;
+        $user->save();
+
+        return response()->json([
+            'res'=> true,
+            'message'=> 'Sistema cerrado....'
+        ], 200);
+    }
 }
