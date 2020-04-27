@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Contacto;// importamos el modelo
 
 use App\Http\Requests\UpdateContactoRequest; //importamos la validaciones
+use App\Http\Requests\CreateContactoRequest;
+
 
 class ContactoController extends Controller
 {
@@ -25,16 +27,26 @@ class ContactoController extends Controller
         }
         return $resultado;
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    //es posible ver la imagen desde el navegador
+    // http://localhost:8000/imagenes/1587967568.PNG
+    private function cargarArchivo( $fichero ) {
+        $nombreArchivo = time().".".$fichero->getClientOriginalExtension();
+        $fichero->move( \public_path('imagenes'), $nombreArchivo );
+        return $nombreArchivo;
+    }
+    //POST insertar contacto
+    //public function store(Request $request)
+    public function store( CreateContactoRequest $request )
     {
-        //
+        $input = $request->all();
+        if ( $request->has('foto') ) {
+            $input['foto'] = $this->cargarArchivo(  $request->foto );
+        }
+        Contacto::create( $input );
+        return  response()->json([
+            'res' =>  true,
+            'message' => 'contacto agregado..'
+        ], 200 );
     }
     //http://127.0.0.1:8000/api/contactos/3
     //GET obtiene un registro por ID
@@ -48,6 +60,13 @@ class ContactoController extends Controller
     public function update(UpdateContactoRequest $request, Contacto $contacto ) 
     {
         $input = $request->all();
+        
+        if ( $request->has('foto') ) {
+            $input['foto'] = $this->cargarArchivo(
+                $request->foto
+            );
+        }
+
         $contacto->update( $input );
         return \response()->json([
             'res'=> true,
