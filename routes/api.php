@@ -17,5 +17,13 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-
 Route::ApiResource('contactos','ContactoController');
+Route::group(['middleware'=>'auth:api'], function () {
+    //Route::ApiResource('contactos','ContactoController');
+});
+
+Route::ApiResource('usuario','UserController');
+
+Route::group( ['middleware'=>'auth:api'], function() {
+    //Route::ApiResource('usuario','UserController');
+});
