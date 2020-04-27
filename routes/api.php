@@ -17,10 +17,6 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::ApiResource('contactos','ContactoController');
-Route::group(['middleware'=>'auth:api'], function () {
-    //Route::ApiResource('contactos','ContactoController');
-});
 
 //insertar usuario
 Route::post('usuario','UserController@store');
@@ -28,6 +24,10 @@ Route::post('usuario','UserController@store');
 //login
 Route::post('login','UserController@login');
 
-Route::group( ['middleware'=>'auth:api'], function() {
-    //Route::ApiResource('usuario','UserController');
+//rutas protegidas
+//Route::ApiResource('contactos','ContactoController');
+Route::group(['middleware'=>'auth:api'], function () {
+    Route::ApiResource('contactos','ContactoController');
+    //cerrar sesion
+    Route::post('logout', 'UserController@logout');
 });
