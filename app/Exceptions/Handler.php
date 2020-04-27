@@ -1,7 +1,12 @@
 <?php
 
 namespace App\Exceptions;
-
+// importaciones necesarias
+use Illuminate\Auth\Eloquent\AuthenticationException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Database\QueryException;
+use Symfony\Component\HttpKernel\Exception\HttpException;
+//
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
 
@@ -50,6 +55,36 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
+        if ( $exception instanceof ModelNotFoundException ) {
+            return response()->json([
+                'res' =>false,
+                'error'=> 'error de modelo'
+            ], 400 );
+        }
+        if ( $exception instanceof QueryException ) {
+            return response()->json([
+                'res' =>false,
+                'error'=> 'Error de consulta a la DB'
+            ], 500 );
+        }
+        if ( $exception instanceof HttpException ) {
+            return response()->json([
+                'res' =>false,
+                'error'=> 'Error de ruta.'
+            ], 404 );
+        }
+        if ( $exception instanceof AuthenticationException ) {
+            return response()->json([
+                'res' =>false,
+                'error'=> 'Error de autentificacion.'
+            ], 401 );
+        }
+        if ( $exception instanceof AuthorizationException ) {
+            return response()->json([
+                'res' =>false,
+                'error'=> 'Error de autorizacion-no tiene permiso.'
+            ], 403 );
+        }
         return parent::render($request, $exception);
     }
 }
