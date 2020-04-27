@@ -23,10 +23,12 @@ Route::post('usuario','UserController@store');
 //Route::ApiResource('usuario','UserController');//esta ruta tabiem es valida para registrar
 //login
 Route::post('login','UserController@login');
-
+    
 //rutas protegidas
 //Route::ApiResource('contactos','ContactoController');
 Route::group(['middleware'=>'auth:api'], function () {
+
+    
     Route::ApiResource('contactos','ContactoController');
     //cerrar sesion
     Route::post('logout', 'UserController@logout');

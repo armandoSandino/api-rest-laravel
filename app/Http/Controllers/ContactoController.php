@@ -55,7 +55,7 @@ class ContactoController extends Controller
     {
         return $contacto;
     }
-    //PUT actualizar un registro
+    //PUT O POST actualizar un registro
     //public function update(Request $request, $id)
     public function update(UpdateContactoRequest $request, Contacto $contacto ) 
     {
