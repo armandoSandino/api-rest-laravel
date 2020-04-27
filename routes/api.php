@@ -22,8 +22,11 @@ Route::group(['middleware'=>'auth:api'], function () {
     //Route::ApiResource('contactos','ContactoController');
 });
 
+//insertar usuario
 Route::post('usuario','UserController@store');
 //Route::ApiResource('usuario','UserController');//esta ruta tabiem es valida para registrar
+//login
+Route::post('login','UserController@login');
 
 Route::group( ['middleware'=>'auth:api'], function() {
     //Route::ApiResource('usuario','UserController');
